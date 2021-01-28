@@ -3,9 +3,146 @@
  */
 package clases;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Main {
     
     public static void main (String [] args) {
-    	System.out.println("Hola Mundo");
+		ArrayList<Libro> catalogo = new ArrayList<Libro>(); 	
+    	while (true) {
+			int opcion = menu();
+			switch (opcion) {
+			case 1:
+				//TODO Alta de Libros
+				//TODO titulo:ibsn:genero:paginas
+				alta(catalogo);
+				break;
+			case 2:
+				//TODO Lista de Libros
+				listaDeLibros(catalogo);
+				break;
+			case 3:
+				//TODO Baja de libros
+				break;
+				
+			case 4:
+				//TODO Busqueda de libros
+				break;
+				
+			case 5:
+				//TODO Ordenacion de libros
+				break;
+			}
+		}
+	}
+    
+    private static int menu() {
+    	int opcion=0;
+    	
+    	do {
+    		System.out.println("Opciones:");
+    		System.out.println("1. Alta de Libro");
+    		System.out.println("2. Lista de Libros");
+    		System.out.println("3. Baja de Libros");
+    		System.out.println("4. Búsqueda de Libros");
+    		System.out.println("5. Ordenacion de Libros");
+    		System.out.println("Introduce la opcion:");
+    	
+    		opcion = leerOpcion(2);
+    		
+    	}while(opcion <=0);
+    	
+    	return opcion;
     }
+    
+    private static int leerOpcion(int max) {
+    	int opcion = -1;
+    	@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+    	try {
+        	opcion = sc.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("La opción no es correcta");
+			if(opcion > max) {
+				opcion = -1;
+			}
+		}    	
+//    	sc.close();
+    	return opcion;
+    }
+    
+    private static String leerCadena() {
+    	String opcion = null;
+    	@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+    	try {
+        	opcion = sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("La opción no es correcta");
+			
+			}
+    	return opcion;
+		}
+    
+    private static Libro procesaEntrada(String entrada) {
+    	Libro libro = null;
+    	
+    	String [] datos = entrada.split(":");
+    	
+    	String titulo = datos[0];
+    	String isbn = datos[1];
+    	Genero genero = Genero.getGenero(datos[2]);
+    	String autor = datos[3];
+    	Integer paginas = Integer.parseInt(datos[4]);
+    	
+    	libro = new Libro(titulo,isbn,genero,autor,paginas);
+    	
+    	return libro;
+    }
+    
+    private static void alta(ArrayList<Libro> catalogo) {
+    	//Leer de la entrada
+    	String datosLibro = obtenerDatosLibro();
+    	//titulo:isbn:genero:autor:paginas
+    	//Procesar la entrada
+    	Libro libro = procesaEntrada(datosLibro);
+    	//Crear el libro con los datos de la entrada
+    	catalogo.add(libro);
+    	//Meter el libro en el catalogo
+    }
+    
+    private static String obtenerDatosLibro() {
+    	String datos=null;
+    	
+    	boolean validado=false;
+    	while(!validado) {
+    		System.out.println("Introduce los datos de un libro.");
+    		System.out.println("Usa el formato \"titulo:isbn:genero:autor:paginas\"");
+    		try {
+    			datos = leerCadena();
+    			if(true)//Supongo de momento que valida siempre
+    				validado=true;
+    		}catch (InputMismatchException e) {
+				System.out.println("Datos de entrada no válidos");
+			}
+    	}
+    	
+    	return datos;
+    }
+    //Don Quijote:4654564:Ficcion:Miguel de Cervantes:523
+    //Platero y yo:6464234:Drama:Miguel de Cervantes:256
+    
+    private static void listaDeLibros(ArrayList<Libro> catalogo){
+    	for (int i = 0; i < catalogo.size(); i++) {
+    	     Libro libro = catalogo.get(i);
+    	      System.out.println(libro.getTitulo() + " " + libro.getIsbn() + " " + libro.getGenero() 
+    	      + " " + libro.getAutor() + " " + libro.getPaginas());
+    	      System.out.println("---------------------------------------------------------");
+    	    }
+    	
+    }
+    
+    
 }

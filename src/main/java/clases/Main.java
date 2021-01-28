@@ -38,6 +38,9 @@ public class Main {
     		System.out.println("Opciones:");
     		System.out.println("1. Alta de Libro");
     		System.out.println("2. Lista de Libros");
+    		System.out.println("3. Baja de Libros");
+    		System.out.println("4. Búsqueda de Libros");
+    		System.out.println("5. Ordenacion de Libros");
     		System.out.println("Introduce la opcion:");
     	
     		opcion = leerOpcion(2);
@@ -66,9 +69,10 @@ public class Main {
     	String datosLibro = obtenerDatosLibro();
     	//titulo:isbn:genero:autor:paginas
     	//Procesar la entrada
-    	procesaEntrada(datosLibro);
+    	Libro libro = procesaEntrada(datosLibro);
     	//Crear el libro con los datos de la entrada
-    	//Meer el libro en el catalogo
+    	catalogo.add(libro);
+    	//Meter el libro en el catalogo
     }
     
     private static String obtenerDatosLibro() {
@@ -77,10 +81,10 @@ public class Main {
     	boolean validado=false;
     	while(!validado) {
     		System.out.println("Introduce los datos de un libro.");
-    		System.out.println("Usa el formato \"titulo:isbn:genero:autor:paginas \"");
+    		System.out.println("Usa el formato \"titulo:isbn:genero:autor:paginas\"");
     		try {
     			datos = leerCadena();
-    			if(true)
+    			if(true)//Supongo de momento que valida siempre
     				validado=true;
     		}catch (InputMismatchException e) {
 				System.out.println("Datos de entrada no válidos");
@@ -101,7 +105,7 @@ public class Main {
     	String autor = datos[3];
     	Integer paginas = Integer.parseInt(datos[4]);
     	
-    	//Constructor por defecto
+    	libro = new Libro(titulo,isbn,genero,autor,paginas);
     	
     	return libro;
     }

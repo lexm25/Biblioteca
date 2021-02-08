@@ -25,6 +25,7 @@ public class Main {
 				break;
 			case 3:
 				//TODO Baja de libros
+				bajaDeLibros(catalogo);
 				break;
 				
 			case 4:
@@ -50,7 +51,7 @@ public class Main {
     		System.out.println("5. Ordenacion de Libros");
     		System.out.println("Introduce la opcion:");
     	
-    		opcion = leerOpcion(2);
+    		opcion = leerOpcion(3);
     		
     	}while(opcion <=0);
     	
@@ -132,17 +133,27 @@ public class Main {
     	return datos;
     }
     //Don Quijote:4654564:Ficcion:Miguel de Cervantes:523
-    //Platero y yo:6464234:Drama:Miguel de Cervantes:256
+    //Platero y yo:6464234:Novela:Miguel de Cervantes:256
     
     private static void listaDeLibros(ArrayList<Libro> catalogo){
     	for (int i = 0; i < catalogo.size(); i++) {
     	     Libro libro = catalogo.get(i);
-    	      System.out.println(libro.getTitulo() + " " + libro.getIsbn() + " " + libro.getGenero() 
-    	      + " " + libro.getAutor() + " " + libro.getPaginas());
+    	     System.out.print((i+1)+"."); 
+    	     System.out.println(libro);
     	      System.out.println("---------------------------------------------------------");
     	    }
-    	
     }
-    
+    private static void bajaDeLibros(ArrayList<Libro> catalogo) {
+    	Scanner sc = new Scanner(System.in);
+    	int seleccion = 0;
+    	do {
+    	System.out.println("Introduzca la posicion del libro que quiere borrar");
+    	seleccion = sc.nextInt();
+    	if(seleccion!=catalogo.size()) {
+    		System.out.println("Posicion incorrecta");
+    	}
+    	}while(seleccion!=catalogo.size());
+    	catalogo.remove(seleccion);
+    }
     
 }

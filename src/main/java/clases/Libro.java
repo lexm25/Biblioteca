@@ -9,7 +9,6 @@ public class Libro {
 	private Integer paginas;
 	
 	public Libro() {
-		
 	}
 	
 	public Libro(String titulo, String isbn, Genero genero, String autor, Integer paginas) {
@@ -89,6 +88,12 @@ public class Libro {
 	 */
 	public void setPaginas(Integer paginas) {
 		this.paginas = paginas;
+	}
+
+	@Override
+	public String toString() {
+		return "Titulo:" + titulo + ", ISBN:" + isbn + ", Genero:" 
+				+ genero + ", Autor:" + autor + ", Paginas:" + paginas;
 	}
 	
 }

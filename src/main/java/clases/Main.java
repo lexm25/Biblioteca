@@ -30,6 +30,7 @@ public class Main {
 				
 			case 4:
 				//TODO Busqueda de libros
+				busquedaDeLibros(catalogo);
 				break;
 				
 			case 5:
@@ -51,7 +52,7 @@ public class Main {
     		System.out.println("5. Ordenacion de Libros");
     		System.out.println("Introduce la opcion:");
     	
-    		opcion = leerOpcion(3);
+    		opcion = leerOpcion(4);
     		
     	}while(opcion <=0);
     	
@@ -132,8 +133,9 @@ public class Main {
     	
     	return datos;
     }
-    //Don Quijote:4654564:Ficcion:Miguel de Cervantes:523
-    //Platero y yo:6464234:Novela:Miguel de Cervantes:256
+    //Don Quijote:46N5fdB45Ajya4:Ficcion:Miguel de Cervantes:523
+    //Platero y yo:64gr98f6kj423j4:Novela:Miguel de Cervantes:256
+    //La Celestina:88f6dg4h9w47:Novela:Fernando de Rojas:365
     
     private static void listaDeLibros(ArrayList<Libro> catalogo){
     	for (int i = 0; i < catalogo.size(); i++) {
@@ -143,6 +145,7 @@ public class Main {
     	      System.out.println("---------------------------------------------------------");
     	    }
     }
+    
     private static void bajaDeLibros(ArrayList<Libro> catalogo) {
     	Scanner sc = new Scanner(System.in);
     	int seleccion = 0;
@@ -154,6 +157,26 @@ public class Main {
     	}
     	}while(seleccion!=catalogo.size());
     	catalogo.remove(seleccion);
+    }
+    
+       
+    private static void busquedaDeLibros(ArrayList<Libro> catalogo) {
+    	String isbn = "";
+    	Scanner sc = new Scanner(System.in);	
+    	System.out.println("Introduzca el isbn del libro a buscar");
+    	isbn = sc.next();
+    	
+    	Libro l = new Libro();
+    	l.setIsbn(isbn);
+    	
+    	int posicion = 0;
+    	posicion = catalogo.indexOf(l);
+    	if( posicion< 0){
+    		System.out.println("El libro no se encuentra en nuestro catalogo");
+    	}
+    	else {
+    		System.out.println(catalogo.get(posicion));
+    	}
     }
     
 }

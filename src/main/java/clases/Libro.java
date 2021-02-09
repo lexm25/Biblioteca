@@ -92,8 +92,22 @@ public class Libro {
 
 	@Override
 	public String toString() {
-		return "Titulo:" + titulo + ", ISBN:" + isbn + ", Genero:" 
-				+ genero + ", Autor:" + autor + ", Paginas:" + paginas;
+		return "Titulo: " + titulo + " ISBN:" + isbn + " Genero:" 
+				+ genero + " Autor:" + autor + " Paginas:" + paginas;
 	}
+	@Override
+	public boolean equals(Object o){
+    	Libro l = (Libro)o;
+		boolean a = false;
+    	if(this == o) {
+    		a = true;
+    	}else {
+    		if(this.isbn.equalsIgnoreCase(l.isbn)) {
+    			a = true;
+    		}
+    	}
+    	return a;
+    }
+	
 	
 }

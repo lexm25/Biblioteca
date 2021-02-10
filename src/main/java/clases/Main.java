@@ -4,7 +4,9 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -35,8 +37,17 @@ public class Main {
 				
 			case 5:
 				//TODO Ordenacion de libros
+				System.out.println(catalogo.size());
+				break;
+			case 6:
+				//TODO Crear fichero
+				break;
+			case 7:
+				//TODO vaciar catalogo
 				break;
 			}
+			
+				
 		}
 	}
     
@@ -66,7 +77,7 @@ public class Main {
     	try {
         	opcion = sc.nextInt();
 		} catch (InputMismatchException e) {
-			System.out.println("La opción no es correcta");
+			System.out.println("La opcion no es correcta");
 			if(opcion > max) {
 				opcion = -1;
 			}
@@ -82,7 +93,7 @@ public class Main {
     	try {
         	opcion = sc.nextLine();
 		} catch (InputMismatchException e) {
-			System.out.println("La opción no es correcta");
+			System.out.println("La opcion no es correcta");
 			
 			}
     	return opcion;
@@ -127,7 +138,7 @@ public class Main {
     			if(true)//Supongo de momento que valida siempre
     				validado=true;
     		}catch (InputMismatchException e) {
-				System.out.println("Datos de entrada no válidos");
+				System.out.println("Datos de entrada no validos");
 			}
     	}
     	
@@ -144,22 +155,25 @@ public class Main {
     	     System.out.println(libro);
     	      System.out.println("---------------------------------------------------------");
     	    }
+    	if(catalogo.size()==0) {
+    		System.out.println("El catalogo esta vacio");
+    	}
     }
-    
+        
     private static void bajaDeLibros(ArrayList<Libro> catalogo) {
     	Scanner sc = new Scanner(System.in);
     	int seleccion = 0;
+   	
     	do {
-    	System.out.println("Introduzca la posicion del libro que quiere borrar");
-    	seleccion = sc.nextInt();
-    	if(seleccion!=catalogo.size()) {
-    		System.out.println("Posicion incorrecta");
-    	}
-    	}while(seleccion!=catalogo.size());
+    		System.out.println("Introduzca la posicion del libro que quiere borrar");
+        	seleccion = sc.nextInt();
+        	if(seleccion>catalogo.size()) {
+    		System.out.println("Posicion incorrecta, introduce una posicion valida");
+        	}
+        }while(seleccion>catalogo.size());
     	catalogo.remove(seleccion);
     }
     
-       
     private static void busquedaDeLibros(ArrayList<Libro> catalogo) {
     	String isbn = "";
     	Scanner sc = new Scanner(System.in);	
@@ -176,6 +190,28 @@ public class Main {
     	}
     	else {
     		System.out.println(catalogo.get(posicion));
+    	}
+    }
+    
+    private static void ordenarLibros(ArrayList<Libro> catalogo) {
+    	Scanner sc = new Scanner(System.in);
+    	int opcion = 0;
+    	do {
+    	System.out.println("Elige como quieres ordenar el catalogo:\n"
+    			+ "1.Titulo(alfabeticamente)\n2.Numero de paginas");
+    	opcion = sc.nextInt();
+    	if(opcion == 1) {
+    	Collections.sort((List) catalogo);
+    	}
+    	else {
+    		//TODO Collections.sort((List)catalogo,compareto NUM PAGINAS en libro);
+    	}
+    	}while(opcion<=2 && 1<=opcion);
+    }
+    
+    private static void vaciarCatalogo(ArrayList<Libro> catalogo) {
+    	for(int i = 0; i<catalogo.size();i++) {
+    	catalogo.remove(i);
     	}
     }
     

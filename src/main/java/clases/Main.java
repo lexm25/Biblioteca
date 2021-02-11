@@ -3,6 +3,10 @@
  */
 package clases;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -40,14 +44,18 @@ public class Main {
 				System.out.println(catalogo.size());
 				break;
 			case 6:
-				//TODO Crear fichero
+				//TODO salvar fichero
+				salvarFichero(catalogo);
 				break;
 			case 7:
+				//TODO cargar fichero
+				cargarFichero();
+				break;
+			case 8:
 				//TODO vaciar catalogo
+				limpiarCatalogo(catalogo);
 				break;
 			}
-			
-				
 		}
 	}
     
@@ -61,9 +69,12 @@ public class Main {
     		System.out.println("3. Baja de Libros");
     		System.out.println("4. Búsqueda de Libros");
     		System.out.println("5. Ordenacion de Libros");
+    		System.out.println("6. Salvar Fichero");
+    		System.out.println("7. Cargar Fichero");
+    		System.out.println("8. Limpiar catalogo");
     		System.out.println("Introduce la opcion:");
     	
-    		opcion = leerOpcion(4);
+    		opcion = leerOpcion(8);
     		
     	}while(opcion <=0);
     	
@@ -116,7 +127,7 @@ public class Main {
     }
     
     private static void alta(ArrayList<Libro> catalogo) {
-    	//Leer de la entrada
+    	//Leer de la entradacatalogo
     	String datosLibro = obtenerDatosLibro();
     	//titulo:isbn:genero:autor:paginas
     	//Procesar la entrada
@@ -209,10 +220,41 @@ public class Main {
     	}while(opcion<=2 && 1<=opcion);
     }
     
-    private static void vaciarCatalogo(ArrayList<Libro> catalogo) {
-    	for(int i = 0; i<catalogo.size();i++) {
-    	catalogo.remove(i);
-    	}
+    //TODO FICHERO
+    private static void salvarFichero(ArrayList<Libro> catalogo) {
+    	Scanner sc = new Scanner(System.in);
+    	String respuesta = "";
+    	
+    	System.out.println("¿Como se llama el fichero a guardar?");
+    	respuesta = sc.next();
+    	
+    	try {
+    	      FileWriter escribeFichero = new FileWriter(respuesta);
+    	      for(Libro l : catalogo) {
+    	    	  escribeFichero.write(l.toStringFile());
+    	      }
+    	      escribeFichero.close();
+    	    } catch (IOException e) {
+    	      System.out.println("Se ha producido un error, vuelva a intentarlo");
+    	      e.printStackTrace();
+    	    }
     }
+    
+    private static void cargarFichero() {
+    	Scanner sc = new Scanner(System.in);
+    	String respuesta = "";
+    	System.out.println("Como se llama el fichero que quieres cargar");
+    	respuesta = sc.next();
+    	      Scanner myReader = new Scanner(respuesta);
+    	      while (myReader.hasNextLine()) {
+    	        String data = myReader.nextLine();
+    	        System.out.println(data);
+    	      }
+    	      myReader.close();
+    }
+    
+    private static void limpiarCatalogo(ArrayList<Libro> catalogo) {
+    	catalogo.clear();
+    	}
     
 }

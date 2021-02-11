@@ -95,6 +95,11 @@ public class Libro {
 		return "Titulo: " + titulo + " ISBN:" + isbn + " Genero:" 
 				+ genero + " Autor:" + autor + " Paginas:" + paginas;
 	}
+	
+	public String toStringFile() {
+		return titulo + "," + isbn + "," + genero + "," + autor + "," + paginas;
+	}
+	
 	@Override
 	public boolean equals(Object o){
     	Libro l = (Libro)o;
@@ -108,6 +113,9 @@ public class Libro {
     	}
     	return a;
     }
+	public int compareTo() {
+		return 0;
+	}
 	
 	
 }

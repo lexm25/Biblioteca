@@ -44,6 +44,13 @@ public class Main {
         }
     }
     
+    //Don Quijote:46N5fdB45Ajya4:Ficcion:Miguel de Cervantes:523
+    //Platero y yo:64gr98f6kj423j4:Novela:Miguel de Cervantes:256
+    //La Celestina:88f6dg4h9w47:Novela:Fernando de Rojas:365
+    
+    /**
+     * @return opciones del menu
+     */
     private static int menu() {
         int opcion=0;
         
@@ -66,6 +73,11 @@ public class Main {
         return opcion;
     }
     
+    /**
+     * Metodo para leer la opcion elegida por el usuario en el menu
+     * @param max numero maximo de opciones
+     * @return opcion elegida por el usuario
+     */
     private static int leerOpcion(int max) {
         int opcion = -1;
         @SuppressWarnings("resource")
@@ -81,6 +93,10 @@ public class Main {
         return opcion;
     }
     
+    /**
+     * Metodo para leer lo introducido por el usuario y verificar que es lo esperado
+     * @return opcion
+     */
     private static String leerCadena() {
         String opcion = null;
         @SuppressWarnings("resource")
@@ -94,6 +110,11 @@ public class Main {
         return opcion;
         }
     
+    /**
+     * Metodo que verifica que los datos introducidos son correctos
+     * @param entrada
+     * @return libro
+     */
     private static Libro procesaEntrada(String entrada) {
         Libro libro = null;
         
@@ -113,6 +134,10 @@ public class Main {
         return libro;
     }
     
+    /**
+     * Metodo para introducir libros en el catalogo por teclado
+     * @param catalogo
+     */
     private static void alta(ArrayList<Libro> catalogo) {
         //Leer de la entradacatalogo
         String datosLibro = obtenerDatosLibro();
@@ -124,6 +149,10 @@ public class Main {
         //Meter el libro en el catalogo
     }
     
+    /**
+     * Metodo que devuelve un libro con los datos introducidos por el usuario por teclado
+     * @return datos
+     */
     private static String obtenerDatosLibro() {
         String datos=null;
         
@@ -142,10 +171,11 @@ public class Main {
         
         return datos;
     }
-    //Don Quijote:46N5fdB45Ajya4:Ficcion:Miguel de Cervantes:523
-    //Platero y yo:64gr98f6kj423j4:Novela:Miguel de Cervantes:256
-    //La Celestina:88f6dg4h9w47:Novela:Fernando de Rojas:365
     
+    /**
+     * Metodo que muestra todos los libros que hay en el catalogo en ese momento
+     * @param catalogo
+     */
     private static void listaDeLibros(ArrayList<Libro> catalogo){
         for (int i = 0; i < catalogo.size(); i++) {
              Libro libro = catalogo.get(i);
@@ -158,21 +188,33 @@ public class Main {
         }
     }
         
+    /**
+     * Metodo para eliminar libros del catalogo mediante la posicion 
+     * introducida por el usuario por teclado
+     * @param catalogo
+     */
     private static void bajaDeLibros(ArrayList<Libro> catalogo) {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         int seleccion = 0;
        
         do {
-            System.out.println("Introduzca la posicion del libro que quiere borrar");
-            seleccion = sc.nextInt();
-            if(seleccion>catalogo.size()) {
-            System.out.println("Posicion incorrecta, introduce una posicion valida");
-            }
+        	try {
+        		System.out.println("Introduzca la posicion del libro que quiere borrar");
+                seleccion = sc.nextInt();
+                if(seleccion>catalogo.size()) {
+                	System.out.println("Posicion incorrecta, introduce una posicion valida");
+                }
+			} catch (IndexOutOfBoundsException e) {
+			}
         }while(seleccion>catalogo.size());
         catalogo.remove(seleccion);
     }
     
+    /**
+     * Metodo que busca un libro del catalogo y te devuelve la posicion
+     * @param catalogo
+     */
     private static void busquedaDeLibros(ArrayList<Libro> catalogo) {
         String isbn = "";
         @SuppressWarnings("resource")
@@ -193,6 +235,10 @@ public class Main {
         }
     }
     
+    /**
+     * Metodo para ordenar los libros por titulo y por numero de paginas a elegir por el usuario
+     * @param catalogo
+     */
     private static void ordenarLibros(ArrayList<Libro> catalogo) {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
@@ -204,14 +250,21 @@ public class Main {
         if(opcion == 1) {
             Collections.sort(catalogo);
         }
-        else {
+        else if(opcion == 2) {
             Libro libro = new Libro();
             Collections.sort(catalogo, libro);        
         }
+        else {
+        	ordenarLibros(catalogo);
+        }
         
-        }while(opcion<=2 && 1<=opcion);
+        }while(opcion==2 && 1==opcion);
     }
     
+    /**
+     * Metodo para guardar lo introducido en el catalogo en un fichero 
+     * @param catalogo
+     */
     private static void salvarFichero(ArrayList<Libro> catalogo) {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
@@ -223,7 +276,7 @@ public class Main {
         try {
               FileWriter escribeFichero = new FileWriter(respuesta);
               for(Libro l : catalogo) {
-                  escribeFichero.write(l.toStringFile());
+                  escribeFichero.write(l.toStringFile() + "\n");
               }
               escribeFichero.close();
             } catch (IOException e) {
@@ -232,6 +285,11 @@ public class Main {
             }
     }
     
+    /**
+     * Metodo que carga los datos introducidos en el fichero con el nombre 
+     * introducido por teclado por el usuario
+     * @param catalogo
+     */
     private static void cargarFichero(ArrayList<Libro> catalogo) {
         Libro libro = null;
         
@@ -267,4 +325,5 @@ public class Main {
     private static void limpiarCatalogo(ArrayList<Libro> catalogo) {
         catalogo.clear();
         }
+
 }

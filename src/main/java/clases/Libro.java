@@ -23,7 +23,7 @@ public class Libro implements Comparable<Libro>,Comparator<Libro> {
     }
 
     /**
-     * @return titulo
+     * @return titulo 
      */
     public String getTitulo() {
         return titulo;
@@ -116,11 +116,17 @@ public class Libro implements Comparable<Libro>,Comparator<Libro> {
         return a;
     }
     
+    /**
+     * Metodo compareTo modificado para ordenar alfabeticamente y devuelva el titulo
+     */
     @Override
     public int compareTo(Libro libro) {
         return titulo.compareToIgnoreCase(libro.titulo);
     }
     
+    /**
+     * Metodo compare modificado para que compare por el numero de paginas y devuelva la diferencia
+     */
     @Override
     public int compare(Libro libro1, Libro libro2) {
         return libro1.getPaginas() - libro2.getPaginas();
